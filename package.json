@@ -15,17 +15,17 @@
     "@types/node": "10.17.27",
     "jest": "^26.4.2",
     "ts-jest": "^26.2.0",
-    "aws-cdk": "2.18.0",
+    "aws-cdk": "2.25.0",
     "ts-node": "^9.0.0",
     "typescript": "~3.9.7"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigatewayv2-alpha": "2.18.0-alpha.0",
-    "@aws-cdk/aws-appsync-alpha": "2.18.0-alpha.0",
-    "@aws-cdk/aws-redshift-alpha": "2.18.0-alpha.0",
-    "@aws-cdk/aws-synthetics-alpha": "2.18.0-alpha.0",
-    "aws-cdk-lib": "2.18.0",
-    "cdk-monitoring-constructs": "*",
+    "@aws-cdk/aws-apigatewayv2-alpha": "2.25.0-alpha.0",
+    "@aws-cdk/aws-appsync-alpha": "2.25.0-alpha.0",
+    "@aws-cdk/aws-redshift-alpha": "2.25.0-alpha.0",
+    "@aws-cdk/aws-synthetics-alpha": "2.25.0-alpha.0",
+    "aws-cdk-lib": "2.25.0",
+    "cdk-monitoring-constructs": "1.8.0",
     "constructs": "10.0.5",
     "source-map-support": "^0.5.16"
   }

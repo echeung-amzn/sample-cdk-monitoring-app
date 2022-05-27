@@ -2,6 +2,7 @@ import { NestedStack, NestedStackProps, RemovalPolicy, Stack, StackProps } from 
 import { DashboardRenderingPreference, DefaultDashboardFactory, MonitoringFacade } from 'cdk-monitoring-constructs';
 import { Construct } from 'constructs';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class SampleCdkMonitoringAppStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -13,6 +14,8 @@ export class SampleCdkMonitoringAppStack extends Stack {
       pointInTimeRecovery: true,
       removalPolicy: RemovalPolicy.DESTROY,
     });
+
+    const queue = new sqs.Queue(this, 'DeadLetterQueue');
 
     new NestedMonitoringStack(this, 'NestedSampleCdkMonitoring', {
       table,
@@ -42,6 +45,8 @@ class NestedMonitoringStack extends NestedStack {
         renderingPreference: DashboardRenderingPreference.INTERACTIVE_ONLY,
       }),
     });
+
+    monitoring.monitorScope(parent);
 
     monitoring.monitorDynamoTable({
       table: props.table,
