@@ -13,6 +13,7 @@ export class SampleCdkMonitoringAppStack extends Stack {
       partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
       pointInTimeRecovery: true,
       removalPolicy: RemovalPolicy.DESTROY,
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
     });
 
     const queue = new sqs.Queue(this, 'DeadLetterQueue');
