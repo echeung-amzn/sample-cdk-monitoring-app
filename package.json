@@ -4,29 +4,38 @@
   "bin": {
     "sample-cdk-monitoring-app": "bin/sample-cdk-monitoring-app.js"
   },
+  "engine": {
+    "node": ">=18"
+  },
   "scripts": {
+    "check-updates": "npx npm-check-updates",
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.10",
-    "@types/node": "10.17.27",
-    "jest": "^26.4.2",
-    "ts-jest": "^26.2.0",
-    "aws-cdk": "2.25.0",
-    "ts-node": "^9.0.0",
-    "typescript": "~3.9.7"
-  },
-  "dependencies": {
-    "@aws-cdk/aws-apigatewayv2-alpha": "2.25.0-alpha.0",
-    "@aws-cdk/aws-appsync-alpha": "2.25.0-alpha.0",
-    "@aws-cdk/aws-redshift-alpha": "2.25.0-alpha.0",
-    "@aws-cdk/aws-synthetics-alpha": "2.25.0-alpha.0",
-    "aws-cdk-lib": "2.25.0",
+    "@aws-cdk/aws-apigatewayv2-alpha": "2.79.1-alpha.0",
+    "@aws-cdk/aws-redshift-alpha": "2.79.1-alpha.0",
+    "@aws-cdk/aws-synthetics-alpha": "2.79.1-alpha.0",
+    "@tsconfig/node18": "1.0.3",
+    "@types/jest": "29.5.1",
+    "@types/node": "^18",
+    "aws-cdk": "2.79.1",
+    "aws-cdk-lib": "2.79.1",
     "cdk-monitoring-constructs": "1.8.0",
-    "constructs": "10.0.5",
-    "source-map-support": "^0.5.16"
+    "constructs": "10.2.24",
+    "jest": "29.5.0",
+    "source-map-support": "0.5.21",
+    "ts-jest": "29.1.0",
+    "ts-node": "10.9.1",
+    "typescript": "5.0.4"
+  },
+  "overrides": {
+    "cdk-monitoring-constructs": {
+      "@aws-cdk/aws-apigatewayv2-alpha": "$@aws-cdk/aws-apigatewayv2-alpha",
+      "@aws-cdk/aws-redshift-alpha": "$@aws-cdk/aws-redshift-alpha",
+      "@aws-cdk/aws-synthetics-alpha": "$@aws-cdk/aws-synthetics-alpha"
+    }
   }
 }
