@@ -9,11 +9,15 @@ export class SampleCdkMonitoringAppStack extends Stack {
     super(scope, id, props);
 
     const table = new dynamodb.Table(this, 'SampleCdkMonitoringAppTable', {
-      tableName: 'SampleTable',
+      tableName: 'SampleTable2',
       partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
       pointInTimeRecovery: true,
       removalPolicy: RemovalPolicy.DESTROY,
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+    });
+    table.addGlobalSecondaryIndex({
+      indexName: 'SampleTable2-GSI',
+      partitionKey: { name: 'name', type: dynamodb.AttributeType.STRING }
     });
 
     const queue = new sqs.Queue(this, 'DeadLetterQueue');
@@ -55,6 +59,10 @@ class NestedMonitoringStack extends NestedStack {
         Warning: { maxErrorCount: 0 },
         Critical: { maxErrorCount: 5 },
       }
+    });
+    monitoring.monitorDynamoTableGlobalSecondaryIndex({
+      table: props.table,
+      globalSecondaryIndexName: 'SampleTable2-GSI',
     });
   }
 }
