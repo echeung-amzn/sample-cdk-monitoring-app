@@ -1,8 +1,9 @@
 import { NestedStack, NestedStackProps, RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
+import * as sqs from 'aws-cdk-lib/aws-sqs';
 import { DashboardRenderingPreference, DefaultDashboardFactory, MonitoringFacade } from 'cdk-monitoring-constructs';
 import { Construct } from 'constructs';
-import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
-import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class SampleCdkMonitoringAppStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -47,7 +48,7 @@ class NestedMonitoringStack extends NestedStack {
         createDashboard: true,
         createSummaryDashboard: true,
         createAlarmDashboard: true,
-        renderingPreference: DashboardRenderingPreference.INTERACTIVE_ONLY,
+        renderingPreference: DashboardRenderingPreference.INTERACTIVE_AND_BITMAP,
       }),
     });
 
@@ -64,5 +65,13 @@ class NestedMonitoringStack extends NestedStack {
       table: props.table,
       globalSecondaryIndexName: 'SampleTable2-GSI',
     });
+
+    monitoring.monitorSecretsManagerSecret({
+      secret: Secret.fromSecretNameV2(this, 'Secret', 'test-secret'),
+      addDaysSinceLastChangeAlarm: {
+        Warning: { maxDaysSinceUpdate: 1000 },
+      },
+      showLastRotationWidget: true,
+    })
   }
 }
